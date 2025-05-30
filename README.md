@@ -1,69 +1,69 @@
-/src
+src/
 
-    /core                     # Core engine systems & utilities
+├── components/                # Definitions of all ECS components
+│   ├── PhysicsComponent.ts
+│   ├── RenderComponent.ts
+│   ├── NetworkComponent.ts
+│   ├── InputComponent.ts
+│   ├── TagComponent.ts
+│   └── RelationshipComponent.ts
+│   ├── ComponentTypes.ts       # Enum-like mapping of component IDs
 
-    /entity                 # Entity management
-        Entity.ts
-        EntityManager.ts
-        EntityComponentMasks.ts
+├── entity/                    # Entity definitions and ECS metadata
+│   ├── Entity.ts
+│   ├── EntityManager.ts
+│   └── EntityComponentMasks.ts
 
-    /component              # Component definitions & enums
-        ComponentTypes.ts
+├── input/                     # Input system: event handling and buffering
+│   ├── InputHandler.ts         # Listens to raw browser input (DOM events)
+│   ├── InputProcessor.ts       # Converts raw events to game input commands
+│   ├── InputBuffer.ts          # Time-indexed storage of processed input events
+│   ├── InputCleaner.ts         # Cleans old input data from buffers
+│   ├── InputTypes.ts           # Input enums, key definitions
+│   └── InputSnapshot.ts        # Optional: per-frame aggregation of inputs
 
-    components/           # Individual component interfaces & implementations
-        PhysicsComponent.ts
-        RenderComponent.ts
-        NetworkComponent.ts
-        InputComponent.ts
-        TagComponent.ts
-        RelationshipComponent.ts
+├── physics/                   # Physics simulation and collision systems
+│   ├── PhysicsEngine.ts        # Core physics stepping
+│   ├── Collider.ts             # Collision bounds, AABB, etc.
+│   ├── RigidBody.ts            # Velocity, acceleration, mass, etc.
+│   └── PhysicsTypes.ts         # Physics enums, constants
 
-    /system                 # Systems that operate on components/entities
-        PhysicsSystem.ts
-        RenderSystem.ts
-        NetworkSystem.ts
-        InputSystem.ts
-        RelationshipSystem.ts
+├── render/                    # Rendering systems and visual abstractions
+│   ├── Renderer.ts             # Core rendering loop
+│   ├── RenderComponents.ts     # Shape, texture, sprite data
+│   ├── Animation.ts            # MVP+ animation utilities
+│   └── Shader.ts               # MVP+ shader support
 
-    /utils                  # Utility functions, helpers
-        RingBuffer.ts
-        Timer.ts
-        EventQueue.ts
-    
-    /input                    # Input handling subsystem
-        InputBuffer.ts          # Ring buffer or event buffer for input events
-        InputCleaner.ts         # Cleans up old buffers/events
-        InputHandler.ts         # Event listeners, raw event capture
-        InputProcessor.ts       # Converts raw events into game input commands
-        InputTypes.ts           # Input event & key enums/types
-        InputSnapshot.ts        # Snapshot/aggregation of inputs per frame (if needed)
-    
-    /render                   # Rendering subsystem
-        Renderer.ts             # Main rendering controller
-        RenderComponents.ts     # Definitions for render components (shapes, textures, lights)
-        Animation.ts            # Animation related logic
-        Shader.ts               # Shaders (MVP+)
-    
-    /physics                  # Physics subsystem
-        PhysicsEngine.ts        # Physics loop and core computation
-        Collider.ts             # Collider definitions and handling
-        RigidBody.ts            # Rigid body data
-        PhysicsTypes.ts         # Enums and types for physics properties
-    
-    /network                  # Networking subsystem
-        NetworkManager.ts       # Manages connections, protocols
-        NetworkTypes.ts         # Enums and types for network data
-        NetworkBuffer.ts        # Buffer for network packets/events
-    
-    /game                     # Game-specific logic (MVP & beyond)
-        GameLoop.ts             # Main game loop controller
-        GameState.ts            # Current state of the game world
-        GameEntities.ts         # Game entity initialization & management
-    
-    /tests                      # Unit & integration tests for all subsystems
-    
-    /docs                       # Design docs, dev log, architecture notes (mirroring Google Docs)
+├── network/                   # Networking logic (MVP++)
+│   ├── NetworkManager.ts       # Client/server logic, sync state
+│   ├── NetworkTypes.ts         # Network message enums
+│   └── NetworkBuffer.ts        # Incoming/outgoing packet buffers
 
-    package.json
-    tsconfig.json
-    README.md
+├── system/                    # ECS Systems (operate on components)
+│   ├── InputSystem.ts
+│   ├── PhysicsSystem.ts
+│   ├── RenderSystem.ts
+│   ├── NetworkSystem.ts
+│   ├── RelationshipSystem.ts
+
+├── game/                      # Game-specific logic, scene init
+│   ├── GameLoop.ts             # Central fixed-timestep loop controller
+│   ├── GameState.ts            # High-level game state manager
+│   └── GameEntities.ts         # Entity creation factory
+
+├── utils/                     # General-purpose helpers and perf-optimized structures
+│   ├── RingBuffer.ts           # Fixed-size buffer (input or network)
+│   ├── Timer.ts                # DeltaTime, FPS, tick counters
+│   ├── EventQueue.ts           # Basic queue for discrete events
+│   ├── MathUtils.ts            # Common math helpers (vec2, clamp, lerp)
+│   ├── Logger.ts               # Configurable logger
+│   └── MiscHelpers.ts          # Fallback / formatting utils
+
+├── tests/                     # Unit and integration test suites
+
+├── docs/                      # Internal dev logs, architecture discussions
+│   └── system_design.md        # Dev log or copy from Google Docs
+
+├── package.json
+├── tsconfig.json
+└── README.md
