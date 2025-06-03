@@ -1,4 +1,4 @@
-import { GameSystem } from '../system/GameSystem';
+import { GameSystem } from '../system/GameSystem.js';
 
 export class GameLoop {
     private systems: Map<string, GameSystem> = new Map();

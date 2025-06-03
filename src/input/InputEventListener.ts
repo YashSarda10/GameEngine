@@ -5,7 +5,7 @@ import {
     KEYBOARD_KEY,
     MOUSE_BUTTON_KEY,
     MOUSE_MOVEMENT_KEY
-} from "./InputTypes";
+} from "./InputTypes.js";
 
 
 export class InputEventListener {
@@ -54,18 +54,20 @@ export class InputEventListener {
     }
 
     private setupKeyboardListeners() {
-        if(!this.digitalEventCallback || !Array.from(this.registeredEventTypes).some(k => k in KEYBOARD_KEY)) {
+        if(!this.digitalEventCallback || !Array.from(this.registeredEventTypes).some(k => Object.values(KEYBOARD_KEY).includes(k as any))) {
             return; // Only add keyboard listeners if any digital keyboard keys are registered
         }
 
         this.handlerMap.set('keydown', (event: KeyboardEvent) => {
             const code = event.code as KEYBOARD_KEY;
+            console.log('[InputEventListener] keydown event:', code);
             if (this.registeredEventTypes.has(code)) {
                 this.digitalEventCallback!(event.timeStamp,code, true);
             }
         });
         this.handlerMap.set('keyup', (event: KeyboardEvent) => {
             const code = event.code as DIGITAL_INPUT_KEY;
+            console.log('[InputEventListener] keyup event:', code);
             if (this.registeredEventTypes.has(code)) {
                 this.digitalEventCallback!(event.timeStamp,code, false);
             }
@@ -76,8 +78,8 @@ export class InputEventListener {
     }
 
     private setupMouseButtonListeners() {
-        if(!this.digitalEventCallback || !Array.from(this.registeredEventTypes).some(k => k in MOUSE_BUTTON_KEY)) {
-            return; // Only add keyboard listeners if any digital keyboard keys are registered
+        if(!this.digitalEventCallback || !Array.from(this.registeredEventTypes).some(k => Object.values(MOUSE_BUTTON_KEY).includes(k as any))) {
+            return; // Only add mouse button listeners if any digital mouse keys are registered
         }
 
         const mouseKeys: Record<number, DIGITAL_INPUT_KEY> = {
@@ -88,12 +90,14 @@ export class InputEventListener {
 
         this.handlerMap.set('mousedown', (event: MouseEvent) => {
             const code = mouseKeys[event.button];
+            console.log('[InputEventListener] mousedown event:', code);
             if (code && this.registeredEventTypes.has(code)) {
                 this.digitalEventCallback!(event.timeStamp,code, true);
             }
         });
         this.handlerMap.set('mouseup', (event: MouseEvent) => {
             const code = mouseKeys[event.button];
+            console.log('[InputEventListener] mouseup event:', code);
             if (code && this.registeredEventTypes.has(code)) {
                 this.digitalEventCallback!(event.timeStamp,code, false);
             }
@@ -104,11 +108,12 @@ export class InputEventListener {
     }
 
     private setupMouseMoveListener() {
-        if(!this.analogEventCallback || !Array.from(this.registeredEventTypes).some(k => k in MOUSE_MOVEMENT_KEY)) {
+        if(!this.analogEventCallback || !Array.from(this.registeredEventTypes).some(k => Object.values(MOUSE_MOVEMENT_KEY).includes(k as any))) {
             return; // Only add mousemove listener if any analog mouse keys are registered
         }
 
         this.handlerMap.set('mousemove', (event: MouseEvent) => {
+            console.log('[InputEventListener] mousemove event:', event.movementX, event.movementY);
             if (this.registeredEventTypes.has(MOUSE_MOVEMENT_KEY.MOUSE_X)) {
                 this.analogEventCallback!(event.timeStamp,MOUSE_MOVEMENT_KEY.MOUSE_X, event.movementX);
             }

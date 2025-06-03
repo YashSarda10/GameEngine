@@ -107,6 +107,7 @@ export class InputSystem implements GameSystem {
         this.printIntervalId = window.setInterval(() => {
             const now = Date.now();
             const events = this.buffer!.readEventsBetween(this.lastPrintTimestamp, now);
+            console.log('[InputSystem] Polling for input events...');
             if (events.length > 0) {
                 console.log('Polled input events:', events);
             }
