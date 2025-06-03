@@ -15,9 +15,9 @@ src/
 │   └── EntityComponentMasks.ts
 
 ├── input/                     # Input system: event handling and buffering
-│   ├── InputHandler.ts         # Listens to raw browser input (DOM events)
+│   ├── InputEventListener.ts         # Listens to raw browser input (DOM events)
 │   ├── InputProcessor.ts       # Converts raw events to game input commands
-│   ├── InputBuffer.ts          # Time-indexed storage of processed input events
+│   ├── TimedInputBuffer.ts          # Time-indexed storage of processed input events
 │   ├── InputCleaner.ts         # Cleans old input data from buffers
 │   ├── InputTypes.ts           # Input enums, key definitions
 │   └── InputSnapshot.ts        # Optional: per-frame aggregation of inputs
